@@ -1,0 +1,233 @@
+:root {
+    --primary-color: #8B7355;
+    --secondary-color: #D2B48C;
+    --light-beige: #F5F5DC;
+    --cream: #FDFBF7;
+    --dark-text: #2C1810;
+    --light-text: #5C4033;
+    --hover-color: #A0522D;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--dark-text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Навигационная панель */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: var(--light-text) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--hover-color) !important;
+}
+
+/* Карточки объявлений */
+.property-card {
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--dark-text);
+    display: block;
+    background-color: white;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.property-card:hover {
+    transform: translateY(-5px);
+    text-decoration: none;
+    color: var(--dark-text);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.property-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background-color: white;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid var(--light-beige);
+    padding: 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color) !important;
+    border-color: var(--hover-color) !important;
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+}
+
+.btn-outline-primary:hover {
+    color: white !important;
+    background-color: var(--primary-color) !important;
+}
+
+/* Формы */
+.form-control {
+    border: 1px solid var(--light-beige);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(210, 180, 140, 0.25);
+}
+
+/* Чат */
+.chat-container {
+    height: 500px;
+    overflow-y: auto;
+    background-color: var(--cream);
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.message {
+    margin: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 80%;
+}
+
+.message-sent {
+    background-color: var(--primary-color);
+    color: white;
+    margin-left: 20%;
+}
+
+.message-received {
+    background-color: white;
+    color: var(--dark-text);
+    margin-right: 20%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Профиль */
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Главная страница */
+.jumbotron {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.display-4 {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Удобства */
+.amenity-icon {
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+
+/* Пагинация */
+.pagination .page-link {
+    color: var(--primary-color);
+    border-color: var(--light-beige);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Алерты */
+.alert {
+    border: none;
+    border-radius: 8px;
+}
+
+.alert-success {
+    background-color: #DFF0D8;
+    color: #3C763D;
+}
+
+.alert-danger {
+    background-color: #F2DEDE;
+    color: #A94442;
+}
+
+/* Дополнительные стили */
+.text-muted {
+    color: var(--light-text) !important;
+}
+
+.border-bottom {
+    border-color: var(--light-beige) !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .jumbotron {
+        padding: 2rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .property-card {
+        margin-bottom: 15px;
+    }
+}

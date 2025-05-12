@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}{{ property.title }} - Rent Easy{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for image in property.images %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='uploads/properties/' + image.filename) }}" 
+                         class="d-block w-100" alt="Фото {{ loop.index }}">
+                </div>
+                {% endfor %}
+            </div>
+            {% if property.images|length > 1 %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+            {% endif %}
+        </div>
+        
+        <h1>{{ property.title }}</h1>
+        <p class="lead">{{ property.city }}, {{ property.district }}</p>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Описание</h5>
+                <p class="card-text">{{ property.description }}</p>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Характеристики</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Тип жилья:</strong> {{ property.property_type }}</p>
+                        <p><strong>Площадь:</strong> {{ property.area }} м²</p>
+                        <p><strong>Комнат:</strong> {{ property.rooms }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Тип аренды:</strong> 
+                            {% if property.is_short_term %}Краткосрочная{% else %}Долгосрочная{% endif %}
+                        </p>
+                        <p><strong>Цена:</strong> {{ property.price }} ₽/месяц</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if property.amenities %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Удобства</h5>
+                <div class="row">
+                    {% for amenity in property.amenities %}
+                    <div class="col-md-3 mb-2">
+                        <i class="{{ amenity.icon }}"></i> {{ amenity.name }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Владелец</h5>
+                <div class="text-center mb-3">
+                    <a href="{{ url_for('profile.view_profile', user_id=property.owner.id) }}" class="text-decoration-none">
+                        {% if property.owner.avatar %}
+                        <img src="{{ url_for('static', filename='uploads/avatars/' + property.owner.avatar) }}" 
+                             class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;" alt="Аватар">
+                        {% else %}
+                        <div class="rounded-circle mx-auto bg-secondary text-white d-flex align-items-center justify-content-center"
+                             style="width: 100px; height: 100px; font-size: 36px;">
+                            {{ property.owner.username[0].upper() }}
+                        </div>
+                        {% endif %}
+                        <h6 class="mt-2">{{ property.owner.username }}</h6>
+                    </a>
+                </div>
+                {% if current_user.is_authenticated and current_user.id != property.owner_id %}
+                <a href="{{ url_for('chat.chat', user_id=property.owner_id) }}" class="btn btn-primary w-100">
+                    Написать сообщение
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if current_user.is_authenticated and current_user.id == property.owner_id %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Управление объявлением</h5>
+                <a href="{{ url_for('properties.edit', id=property.id) }}" class="btn btn-warning w-100 mb-2">
+                    Редактировать
+                </a>
+                <form method="POST" action="{{ url_for('properties.delete', id=property.id) }}" 
+                      onsubmit="return confirm('Вы уверены, что хотите удалить это объявление?');">
+                    <button type="submit" class="btn btn-danger w-100">Удалить</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
